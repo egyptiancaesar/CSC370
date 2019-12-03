@@ -1,0 +1,63 @@
+DROP TABLE IF EXISTS Volunteers
+DROP TABLE IF EXISTS Worksheets
+DROP TABLE IF EXISTS Students
+DROP TABLE IF EXISTS Student_Current_Worksheet
+DROP TABLE IF EXISTS Student_Submitted_Worksheet
+DROP TABLE IF EXISTS Volunteer_Grading_Worksheet
+DROP TABLE IF EXISTS Graded_Worksheet
+DROP TABLE IF EXISTS Recommended_Worksheet
+
+CREATE TABLE Worksheets
+(W_ID serial PRIMARY KEY, V_ID INT NOT NULL, Concepts CHAR(300) NOT NULL, Level CHAR(30) NOT NULL);
+
+CREATE TABLE Volunteers
+(V_ID serial PRIMARY KEY, first_name CHAR(30) NOT NULL, last_name CHAR(30) NOT NULL, email VARCHAR(255) NOT NULL, language CHAR(30) );
+
+CREATE TABLE Worksheets
+(W_ID serial PRIMARY KEY, V_ID INT REFERENCES Volunteers, Concepts VARCHAR(300)
+NOT NULL, LEvel VARCHAR(300) NOT NULL);
+
+CREATE TABLE Students
+(S_ID serial PRIMARY KEY, first_name CHAR(30) NOT NULL, last_name CHAR(30) NOT NULL, email VARCHAR(255) NOT NULL, level CHAR(30) NOT NULL, school_grade CHAR(30)  NOT NULL, Country CHAR(30) NOT NULL, language CHAR(30), Olympiad BOOLEAN);
+
+CREATE TABLE Student_Current_Worksheet
+(S_ID serial PRIMARY KEY, WI_D INT  NOT NULL);
+
+CREATE TABLE Student_Submitted_Worksheet
+(SUB_ID serial PRIMARY KEY, S_ID INT, W_ID INT, date NOT NULL DEFAULT CURRENT_DATE);
+
+CREATE TABLE Volunteer_Grading_worksheet
+(SUB_ID serial PRIMARY KEY, V_ID INT NOT NULL, W_ID INT NOT NULL, date NOT NULL DEFAULT CURRENT_DATE);
+
+CREATE TABLE Graded_Worksheet
+(GRDS_ID serial PRIMARY KEY, S_ID INT NOT NULL, W_ID INT NOT NULL, V_ID INT NOT NULL, Language CHAR(30), Grade INT NOT NULL, Review CHAR(300));
+
+CREATE TABLE Recommended_Worksheet
+(RCMND_ID serial PRIMARY KEY, S_ID INT NOT NULL, W_ID INT NOT NULL, V_ID INT NOT NULL);
+
+INSERT INTO VOLUNTEERS(v_id,first_name,last_name,email,language)
+VALUES(nextval('v_serial'),'Nirmala','Gnanaratnam','gn@uvic.ca', 'English');
+
+INSERT INTO VOLUNTEERS(v_id,first_name,last_name,email,language)
+VALUES(nextval('v_serial','Jamie','Fox', 'jamie.f@ubc.ca', 'English'));
+
+INSERT INTO WORKSHEETS(w_id, creator, concepts, level)
+VALUES(nextval('w_serial'), '1' , 'Algebra', 'college');
+
+
+INSERT INTO STUDENTS(s_id, first_name, last_name, email, level, school_grade, country, language, olympiad)
+VALUES(nextval(‘s_serial’), ‘Omar’, ‘AbdulAziz’,  ‘omarabdu@uvic.ca’ , ‘college’, ‘Canada’, English, TRUE);
+
+INSERT INTO STUDENTS(s_id, first_name, last_name, email, level, school_grade, country, language, olympiad)
+VALUES(nextval(‘s_serial’), ‘Ri’, ‘Raeyal’,  ‘rirae@gmail.ca’ , ‘9’, ‘USA’, English, TRUE);
+
+INSERT INTO WORKSHEETS(w_id, creator, concepts, level)
+VALUES(nextval('w_serial'), '2' , 'Adding', 3);
+
+INSERT INTO WORKSHEETS(w_id, creator, concepts, level)
+VALUES(nextval('w_serial'), '2' , 'Algebra', 3);
+
+
+
+
+
