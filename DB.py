@@ -6,18 +6,15 @@ def connect():
     """ Connect to the PostgreSQL database server """
     conn = None
     try:
-        # read connection parameters
+        # read connection parameters and connect to postgreSQL server. Also
+        # create a server and query the database for its current version.
         params = config()
-        # connect to the PostgreSQL server
         print('Connecting to the PostgreSQL database...')
         conn = psycopg2.connect(**params)
         print('Connected')
-        # create a cursor
         cur = conn.cursor()
-        # execute a statement
         print('PostgreSQL database version:')
         cur.execute('SELECT version()')
-        # display the PostgreSQL database server version
         db_version = cur.fetchone()
         print(db_version)
         #sql commands:
